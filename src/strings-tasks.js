@@ -19,8 +19,14 @@
  *   getStringLength(null) => 0
  *   getStringLength(undefined) => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  if (value === null) {
+    return 0;
+  }
+  if (value === undefined) {
+    return 0;
+  }
+  return value.length;
 }
 
 /**
@@ -37,8 +43,33 @@ function getStringLength(/* value */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  let string = '';
+  const empty = '{}';
+  const emptyString = JSON.stringify(value);
+  // console.log(value);
+  // console.log(typeof value);
+  if (value !== null && !(value instanceof Array) && emptyString !== empty) {
+    if (typeof value === 'object') {
+      string = value.toString();
+    } else {
+      string = value;
+    }
+  } else {
+    string = value;
+    // console.log(value);
+  }
+  // console.log(string);
+  // console.log(typeof string);
+  let result = '';
+  if (typeof string === 'string') {
+    result = true;
+    // console.log(result);
+  } else {
+    result = false;
+  }
+
+  return result;
 }
 
 /**
@@ -53,8 +84,8 @@ function isString(/* value */) {
  *   concatenateStrings('aa', '') => 'aa'.
  *   concatenateStrings('', 'bb') => 'bb'
  */
-function concatenateStrings(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function concatenateStrings(value1, value2) {
+  return value1.concat(value2);
 }
 
 /**
@@ -68,8 +99,8 @@ function concatenateStrings(/* value1, value2 */) {
  *   getFirstChar('cat') => 'c'
  *   getFirstChar('') => ''
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value.charAt(0);
 }
 
 /**
@@ -83,8 +114,10 @@ function getFirstChar(/* value */) {
  *   removeLeadingAndTrailingWhitespaces('cat ') => 'cat'
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  const valueString = value.trim('');
+  // console.log(valueString);
+  return valueString;
 }
 
 /**
@@ -98,8 +131,10 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   removeLeadingWhitespaces('cat ') => 'cat '
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
-function removeLeadingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingWhitespaces(value) {
+  const valueString = value.trimStart('');
+  // console.log(valueString);
+  return valueString;
 }
 
 /**
@@ -113,8 +148,10 @@ function removeLeadingWhitespaces(/* value */) {
  *   removeTrailingWhitespaces('cat ') => 'cat'
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
-function removeTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeTrailingWhitespaces(value) {
+  const valueString = value.trimEnd('');
+  // console.log(valueString);
+  return valueString;
 }
 
 /**
@@ -130,8 +167,12 @@ function removeTrailingWhitespaces(/* value */) {
  *   repeatString('', 3) => ''
  *   repeatString('abc', -2) => ''
  */
-function repeatString(/* str, times */) {
-  throw new Error('Not implemented');
+function repeatString(value, count) {
+  let times = count;
+  if (count < 0) {
+    times = 0;
+  }
+  return value.repeat(times);
 }
 
 /**
@@ -146,10 +187,17 @@ function repeatString(/* str, times */) {
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const i = str.indexOf(value);
+  // console.log(str);
+  // console.log(value);
+  // console.log(i);
+  const strArray = str.split('');
+  if (i >= 0) {
+    strArray.splice(i, value.length);
+  }
+  return strArray.join('');
 }
-
 /**
  * Remove the last occurrence of a substring from a string.
  *
@@ -162,8 +210,16 @@ function removeFirstOccurrences(/* str, value */) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  const i = str.lastIndexOf(value);
+  // console.log(str);
+  // console.log(value);
+  // console.log(i);
+  const strArray = str.split('');
+  if (i >= 0) {
+    strArray.splice(i, value.length);
+  }
+  return strArray.join('');
 }
 
 /**
@@ -178,8 +234,17 @@ function removeLastOccurrences(/* str, value */) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  // console.log(typeof str);
+  if (str !== undefined && str !== null && str.length !== 0) {
+    return str.split('').reduce((accum, value) => {
+      // console.log(value);
+      // console.log(accum);
+      // console.log(value.charCodeAt());
+      return accum + value.charCodeAt();
+    }, 0);
+  }
+  return 0;
 }
 
 /**
@@ -193,8 +258,8 @@ function sumOfCodes(/* str */) {
  *   startsWith('Hello World', 'World') => false
  *   startsWith('Hello World', 'Hello') => true
  */
-function startsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function startsWith(str, substr) {
+  return str.startsWith(substr);
 }
 
 /**
@@ -208,8 +273,8 @@ function startsWith(/* str, substr */) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  return str.endsWith(substr);
 }
 
 /**
@@ -225,8 +290,20 @@ function endsWith(/* str, substr */) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  let min;
+  let sec;
+  if (minutes < 10) {
+    min = minutes.toString().padStart(2, '0');
+  } else {
+    min = minutes;
+  }
+  if (seconds < 10) {
+    sec = seconds.toString().padStart(2, '0');
+  } else {
+    sec = seconds;
+  }
+  return `${min}:${sec}`;
 }
 
 /**
@@ -396,8 +473,8 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.slice(1, -1);
 }
 
 /**
@@ -415,8 +492,8 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -435,8 +512,30 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const firstPartOfLetters = 'ABCDEFGHIJKLMabcdefghijklm';
+  const secondPartOfLetters = 'NOPQRSTUVWXYZnopqrstuvwxyz';
+  const firstArray = firstPartOfLetters.split('');
+  const secondArray = secondPartOfLetters.split('');
+  const resultArray = [];
+  const strArray = str.split('');
+  for (let i = 0; i < strArray.length; i += 1) {
+    for (let j = 0; j < firstArray.length; j += 1) {
+      if (strArray[i] === firstArray[j]) {
+        resultArray.push(secondArray[j]);
+      }
+    }
+    for (let k = 0; k < firstArray.length; k += 1) {
+      if (strArray[i] === secondArray[k]) {
+        resultArray.push(firstArray[k]);
+      }
+    }
+    if (strArray[i] === '?' || strArray[i] === '!' || strArray[i] === ' ') {
+      resultArray.push(strArray[i]);
+    }
+  }
+  // console.log(resultArray);
+  return resultArray.join('');
 }
 
 /**
@@ -463,8 +562,71 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const deck = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  let result = '';
+  for (let i = 0; i < deck.length; i += 1) {
+    if (deck[i] === value) {
+      result = i;
+    }
+  }
+  if (result === '') {
+    return `Invalid id for card '${value}':`;
+  }
+  return result;
 }
 
 module.exports = {
